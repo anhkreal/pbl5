@@ -1,0 +1,45 @@
+# .gitignore for face_api
+
+# Byte-compiled / cache / temp files
+__pycache__/
+*.py[cod]
+*.so
+*.log
+*.tmp
+*.swp
+
+# Jupyter and notebook checkpoints
+.ipynb_checkpoints/
+
+# Environment and dependency files
+.env
+.env.*
+venv/
+ENV/
+*.egg-info/
+
+# Database and local data
+*.sqlite3
+*.db
+*.db-journal
+
+# FAISS/Index/Cache
+*.index
+*.faiss
+*.cache
+
+# Numpy arrays (do NOT ignore .pth models)
+*.npz
+glint360k_cosface_r50_fp16_0.1.pth
+
+# Ignore test outputs
+htmlcov/
+.coverage
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore VSCode settings
+.vscode/
+

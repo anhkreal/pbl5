@@ -1,0 +1,31 @@
+# Face Recognition API - Backend Only
+
+# Core Framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# Computer Vision & AI
+opencv-python>=4.8.0
+numpy>=1.24.0,<2.0.0
+torch>=2.0.0
+torchvision>=0.15.0
+Pillow>=10.0.0
+
+# FAISS Vector Search
+faiss-cpu>=1.7.4
+
+# Anti-spoofing & Face Analysis
+deepface>=0.0.93
+tensorflow>=2.15.0,<2.16.0
+
+# Database
+pymysql>=1.1.0
+
+# File Handling  
+python-multipart>=0.0.6
+
+# Config & Validation
+pydantic>=1.10.0,<2.0.0
+
+# Additional utilities
+requests>=2.31.0
