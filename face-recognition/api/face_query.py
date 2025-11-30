@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi import Form
 from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import JSONResponse
@@ -12,6 +13,22 @@ from service.checkin_service import checkin_service as svc_checkin
 from service.add_emotion_service import add_emotion_service
 from service.add_emotion_service import add_emotion_service
 from service.checkout_service import checkout as svc_checkout
+from fastapi import Form
+from fastapi import APIRouter, File, UploadFile
+from fastapi.responses import JSONResponse
+import numpy as np
+import cv2
+import time
+import httpx
+from service.face_query_service import query_face_service as face_query_service
+from service.add_embedding_simple_service import simple_add_embedding_service
+from service.anti_spoofing_service import spoof_detection_service
+from service.checkin_service import checkin_service as svc_checkin
+from service.add_emotion_service import add_emotion_service
+from service.add_emotion_service import add_emotion_service
+from service.checkout_service import checkout as svc_checkout
+from typing import Optional
+
 
 router = APIRouter()
 
@@ -58,12 +75,14 @@ async def call_add_emotion_api(user_id: int, emotion: str):
     response_description="Kết quả nhận diện khuôn mặt hoặc thông tin người mới được thêm tự động",
     tags=["👤 Nhận Diện Khuôn Mặt"]
 )
+
 async def query_face(
     image: UploadFile = File(
-        ..., 
+        ...,
         description="File ảnh chứa khuôn mặt cần nhận diện (JPG, PNG, WEBP)",
         media_type="image/*"
-    )
+    ),
+    isServing: Optional[bool] = Form(False)
 ):
     """
     🔍 Nhận diện khuôn mặt với tính năng auto-add
@@ -130,7 +149,7 @@ async def query_face(
                     )
                     print(f"[info] Logged not-good emotion '{emotion_str}' for user_id {class_id}. Result: {log_result}")
 
-                    # --- Cập nhật KPI: trừ 3 điểm emotion_score, cập nhật total_score ---
+                    # --- Cập nhật KPI: trừ điểm emotion_score theo isServing, cập nhật total_score ---
                     from datetime import datetime
                     import pytz
                     from service.kpi_service import get_kpi_by_user_and_date_service, update_kpi_service
@@ -142,7 +161,9 @@ async def query_face(
                         kpi_id = kpi_res['kpi']['id']
                         old_emotion_score = kpi_res['kpi'].get('emotion_score', 100.0) or 100.0
                         attendance_score = kpi_res['kpi'].get('attendance_score', 100.0) or 100.0
-                        new_emotion_score = max(0, old_emotion_score - 3)
+                        # Trừ điểm theo isServing
+                        minus = 5 if isServing else 2
+                        new_emotion_score = max(0, old_emotion_score - minus)
                         total_score = new_emotion_score * 0.3 + attendance_score * 0.7
                         remark = kpi_res['kpi'].get('remark', '')
                         update_kpi_service(kpi_id, int(class_id), str(today), new_emotion_score, attendance_score, total_score, remark)

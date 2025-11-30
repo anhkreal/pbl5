@@ -49,6 +49,7 @@ except ImportError:
 # MySQL Authentication
 from auth.mysql_auth_api import router as mysql_auth_router
 from api.taikhoan_api import taikhoan_router
+from api.add_user_and_account import add_user_and_account_router
 
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 
@@ -157,6 +158,7 @@ app.include_router(edit_checklog_router, tags=["✏️ Edit Checklog"])
 app.include_router(predict_router, tags=["🤖 Dự Đoán"])
 app.include_router(health_router, tags=["❤️ Sức Khỏe"])
 app.include_router(checkout_router, tags=["🕒 Checkout"])
+app.include_router(add_user_and_account_router, tags=["➕ Thêm Tài Khoản"])
 
 if PERFORMANCE_AVAILABLE:
     app.include_router(performance_router, prefix="/metrics", tags=["📈 Hiệu Suất"])
@@ -276,4 +278,4 @@ if __name__ == "__main__":
     print("📚 Swagger UI: http://localhost:8000/docs")
     print("📖 ReDoc: http://localhost:8000/redoc")
     uvicorn.run(app, host="0.0.0.0", port=8000)
-    
+

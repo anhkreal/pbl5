@@ -61,7 +61,7 @@ export default function StaffKPIReport() {
       </div>
       <div style={{ background: '#fff', borderRadius: 8 }}>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead><tr style={headRow}>{['STT', 'Ngày', 'Chuyên cần', 'Cảm xúc', 'Tổng'].map(h => <th key={h} style={th}>{h}</th>)}</tr></thead>
+          <thead><tr style={headRow}>{['STT', 'Ngày', 'Chuyên cần', 'Cảm xúc', 'Tổng', 'Nhận xét'].map(h => <th key={h} style={th}>{h}</th>)}</tr></thead>
           <tbody>
             {loading && <tr><td style={{ padding: 10 }} colSpan={5}>Đang tải...</td></tr>}
             {error && <tr><td style={{ padding: 10, color: 'red' }} colSpan={5}>{error}</td></tr>}
@@ -69,12 +69,13 @@ export default function StaffKPIReport() {
               <tr key={r.date} style={row}>
                 <td style={td}>{i + 1}</td>
                 <td style={td}>{r.date}</td>
-                <td style={td}>{(r.attendanceScore * 100).toFixed(1)}%</td>
-                <td style={td}>{(r.emotionScore * 100).toFixed(1)}%</td>
-                <td style={{ ...td, fontWeight: 600 }}>{(r.totalScore * 100).toFixed(1)}%</td>
+                <td style={td}>{r.attendanceScore.toFixed(2)}</td>
+                <td style={td}>{r.emotionScore.toFixed(2)}</td>
+                <td style={{ ...td, fontWeight: 600 }}>{r.totalScore.toFixed(2)}</td>
+                <td style={td}>{r.remark || '--'}</td>
               </tr>
             ))}
-            {!data.length && !loading && <tr><td style={{ padding: 16 }} colSpan={5}>Không có dữ liệu</td></tr>}
+            {!data.length && !loading && <tr><td style={{ padding: 16 }} colSpan={6}>Không có dữ liệu</td></tr>}
           </tbody>
         </table>
       </div>

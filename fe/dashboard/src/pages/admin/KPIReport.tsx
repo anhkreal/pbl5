@@ -61,9 +61,9 @@ export default function AdminKPIReport() {
       </div>
 
       <div style={{ marginBottom: 20, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 16 }}>
-        <Stat label="Avg Emotion" value={(avg(filtered.map(f => f.emotionScore)) * 100).toFixed(1) + '%'} color="#9b59b6" />
-        <Stat label="Avg Attendance" value={(avg(filtered.map(f => f.attendanceScore)) * 100).toFixed(1) + '%'} color="#3498db" />
-        <Stat label="Avg Total KPI" value={(avg(filtered.map(f => f.totalScore)) * 100).toFixed(1) + '%'} color="#16a085" />
+        <Stat label="Avg Emotion" value={avg(filtered.map(f => f.emotionScore)).toFixed(2)} color="#9b59b6" />
+        <Stat label="Avg Attendance" value={avg(filtered.map(f => f.attendanceScore)).toFixed(2)} color="#3498db" />
+        <Stat label="Avg Total KPI" value={avg(filtered.map(f => f.totalScore)).toFixed(2)} color="#16a085" />
         <Stat label="Records" value={filtered.length.toString()} color="#e67e22" />
       </div>
 
@@ -86,10 +86,10 @@ export default function AdminKPIReport() {
               <tr key={k.id} style={{ borderBottom: '1px solid #ecf0f1' }}>
                 <td style={td}>{k.date}</td>
                 <td style={td}>{k.userName}</td>
-                <td style={td}>{(k.emotionScore * 100).toFixed(1)}%</td>
-                <td style={td}>{(k.attendanceScore * 100).toFixed(1)}%</td>
+                <td style={td}>{k.emotionScore.toFixed(2)}</td>
+                <td style={td}>{k.attendanceScore.toFixed(2)}</td>
                 <td style={td}>
-                  <strong>{(k.totalScore * 100).toFixed(1)}%</strong>
+                  <strong>{k.totalScore.toFixed(2)}</strong>
                 </td>
                 <td style={td}>{k.remark || '--'}</td>
               </tr>

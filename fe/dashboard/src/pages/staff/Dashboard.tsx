@@ -20,7 +20,7 @@ export default function StaffDashboard() {
       }}>
         <Card label="Giờ check-in" value={checkIn} color="#3498db" />
         <Card label="Giờ làm đến hiện tại" value={hoursSoFar.toFixed(1) + 'h'} color="#16a085" />
-        <Card label="KPI hôm nay" value={(kpiToday * 100).toFixed(1) + '%'} color="#9b59b6" />
+        <Card label="KPI hôm nay" value={kpiToday.toFixed(2)} color="#9b59b6" />
       </div>
       <div style={{ background: '#fff', padding: 20, borderRadius: 10 }}>
         <h3 style={{ marginBottom: 14 }}>Biểu đồ cảm xúc tiêu cực hôm nay</h3>

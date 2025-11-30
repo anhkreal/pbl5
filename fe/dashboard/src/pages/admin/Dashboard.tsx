@@ -6,7 +6,7 @@ export default function AdminDashboard() {
     { label: 'Đã check-in', value: 9, color: '#2ecc71' },
     { label: 'Trong ca', value: 12, color: '#3498db' },
     { label: 'Đi muộn', value: 3, color: '#e74c3c' },
-    { label: 'Tích cực', value: '67%', color: '#9b59b6' }
+    { label: 'Tích cực', value: 0.67, color: '#9b59b6' }
   ];
   return (
     <AdminLayout>
